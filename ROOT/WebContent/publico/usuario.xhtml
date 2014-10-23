@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/interna.xhtml">
+
+<ui:define name="titulo">
+Cadastro de Usu�rio
+</ui:define>
+
+<ui:define name="corpo">
+
+<h:form id="cadastro">
+
+  
+<h:message /> <!-- exibe mensagens de erro para o usuario , essencial  -->
+   
+ <!-- inputHidden carrega o codigo e ativo , de forma escondida do usuario  -->
+<h:inputHidden value="#{usuarioBean.usuario.codigo}"></h:inputHidden>
+<h:inputHidden value="#{usuarioBean.usuario.ativo}"></h:inputHidden>
+<h:inputHidden value="#{usuarioBean.destinoSalvar}"></h:inputHidden>
+<h:inputHidden value="#{usuarioBean.senhaCriptografada}"></h:inputHidden>
+
+<h:panelGrid columns="2">
+
+<h:outputLabel value="Nome" for="nome" />
+<h:inputText id="nome" label="Nome" value="#{usuarioBean.usuario.nome}" 
+size="30" maxlength="30" 
+required="true" requiredMessage="Você não tem nome?">
+<f:validateLength minimum="10" maximum="30"></f:validateLength>
+</h:inputText>
+
+
+<h:outputLabel value="Data Nascimento" for="data" />
+<h:inputText id="data" label="Data Nascimento"
+value="#{usuarioBean.usuario.nascimento}" 
+size="10" maxlength="10" required="true" >
+<f:convertDateTime dateStyle="medium"></f:convertDateTime>
+</h:inputText>
+
+
+<h:outputLabel value="Celular" for="celular" />
+<h:inputText id="celular" label="Celular" value="#{usuarioBean.usuario.celular}"
+size="10"/> 
+
+
+<h:outputLabel value="e-Mail" for="email" />
+<h:panelGroup>
+<h:inputText id="email"
+label="e-Mail"
+value="#{usuarioBean.usuario.email}"
+size="50" maxlength="50" required="true"
+validatorMessage="e-mail inválido">
+<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+</h:inputText>
+<h:message for="email"></h:message>
+</h:panelGroup>
+
+<h:outputLabel value="Idioma" for="idioma" />
+<h:selectOneMenu id="idioma" value="#{usuarioBean.usuario.idioma}">
+<f:selectItem itemValue="pt_BR" itemLabel="Portugues"/>
+<f:selectItem itemValue="en_US" itemLabel="English"/>
+<f:selectItem itemValue="es_ES" itemLabel="Espanol"/>
+</h:selectOneMenu>
+
+
+<h:outputLabel value="Login" for="login" />
+<h:inputText id="login" label="Login"
+value="#{usuarioBean.usuario.login}"
+size="15" maxlength="15" required="true" 
+validatorMessage="Login deve ter no mínimo 5  e 
+no máximo 15 caracteres e só pode ter símbolos '.' e '_' ">
+<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,15}" /> 
+</h:inputText>
+
+
+<h:outputLabel value="Senha" for="senha" />
+<h:inputSecret id="senha" label="Senha" 
+value="#{usuarioBean.usuario.senha}"
+size="10" maxlength="10" required="#{empty contextoBean.usuarioLogado}" 
+redisplay="false"/> <!-- redisplay == senha preenchida no campo reexibida na tela -->
+<!-- required = {empty contextoBean.usuarioLogado}  = altera para que campo não seja obrigatoria caso seja uma edição -->
+
+<h:outputText />
+<h:outputLabel value="Confirmar Senha" for="confirmarSenha" />
+<h:inputSecret id="confirmarSenha" label="ConfirmarSenha" 
+value="#{usuarioBean.confirmarSenha}" 
+size="10" maxlength="10" required="#{empty contextoBean.usuarioLogado}"
+redisplay="false" />
+</h:panelGrid>
+
+
+
+
+<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" />
+
+</h:form>
+
+</ui:define>
+
+</ui:composition>
+
+</html>

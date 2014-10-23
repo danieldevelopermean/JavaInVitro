@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jstl/core">
+	
+	<!-- busca o modelo q será usado -->
+	<ui:composition template="/templates/principal.xhtml">
+	
+	
+	
+	<!-- inicio: define o corpo em o metodo ira afetar -->
+	<ui:define name="corpo">
+	<h:form>
+	<h:commandButton action="#{usuarioBean.novo}" value="Registre-se"></h:commandButton>
+	</h:form>
+	
+	<!-- só sera exibido caso ocorra falha no login -->
+	<h:panelGroup rendered="#{!empty param.login.error}"><!-- configurada na linha 14 applicationContext-security.xml //cap 6-->
+	<span style="font-color:red "> Erro ao efetuar o Login</span><br />
+	Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message} <!--armazena mensagem de erro  -->
+	</h:panelGroup>
+	
+	<!-- esse formulario so se comunica com o Spring e não com o jsf, por isso do html abaixo -->
+	<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check"> <!--destino padrão para login do spring security --> 
+	<table> <!-- #{request.contextPath} chama no contexto raiz do aplicativo web -->
+			<!-- #{request.contextPath} equivale a /FinanceiroWeb/j_spring_security_check -->
+	
+	<tr><td>Login</td>
+	<td><input type="text" name="j_username" /></td> <!-- nome padrão Spring  -->
+	</tr>
+	
+	<tr><td>Senha</td>
+	<td><input type="password" name="j_password" /></td>
+	</tr>
+	
+	<tr> <!-- salvar senha na memoria  -->
+	<td align="right"><input type="checkbox" name="_spring_security_remember_me" /> </td> 
+	<td>Entrar automaticamente</td> <!--aquela caixinha embaixo do botão de salvar -->
+	</tr>
+	
+	<tr> <!-- botão -->
+	<td></td>
+	<td><input type="submit" value="Entrar" /> </td>
+	</tr>
+	
+	<!--tabela diretamente vinculada a applicationContext-security.xml -->
+	</table>
+	
+	<script>
+	document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}"; <!-- preenche automaticamente o login padrão com o ultimo nome digitado  -->
+	</script>
+	
+	</form>
+	
+	
+	
+</ui:define> <!-- fim: define -->
+</ui:composition>	<!-- fim da chamada da pagina template -->
+</html>

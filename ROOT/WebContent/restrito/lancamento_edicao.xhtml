@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<ui:composition>
+	<h:form id="edicao">
+		<h:messages />
+		<h:inputHidden value="#{lancamentoBean.editado.lancamento}" />
+
+		<h:panelGrid columns="6">
+			<h:outputLabel value="Data" for="data" />
+			<br />
+			<h:outputLabel value="Categoria" for="categoria" />
+			<br /> 
+			<h:outputLabel value="Descrição" for="descricao" />
+					
+			
+			<!-- exibi um caleçndario em formato pop up , pattern define o formato a ser mostrado pag 355 -->			
+			<p:calendar id="data" value="#{lancamentoBean.editado.data}" pattern="dd/MM/yyyy"/>
+					
+			<br />			
+			<h:selectOneMenu id="categoria" value="#{lancamentoBean.editado.categoria}"> <!-- cada lancamento de valor é atribuido a uma categoria especificada na edição -->
+				<f:selectItems value="#{categoriaBean.categoriasSelect}" /> <!--  buscando na class CategoriaBean.java pois o lancamento tem uma FK vinculada -->
+			</h:selectOneMenu>
+
+			<br />
+			<h:inputText id="descricao"	value="#{lancamentoBean.editado.descricao}"	
+			required="true" size="30" />
+			
+		</h:panelGrid>
+		<p:commandButton value="Novo" action="#{lancamentoBean.novo}" process="@this" update="edicao"/><!--process="@this" indica q somente o botão sera enviado e nã[o todo o formulario, não havera validação  -->
+		<p:commandButton value="Salvar" action="#{lancamentoBean.salvar}" update="listagem, edicao"/>
+		<p:commandButton value="Update" action="#{lancamentoBean.update}" update="listagem, edicao"/>
+	</h:form>
+</ui:composition>
+</html>

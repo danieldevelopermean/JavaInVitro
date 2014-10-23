@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/templates/principal.xhtml">
+	
+	<ui:define name="corpo">
+	
+	<h1>Manutenção 16/03/2014</h1>
+	
+	O site funciona no eclipse mas não responde da mesma maneira no servidor contratado.
+	<br />
+	O erro que vem ocorrendo é que após o usuário cadastrado efetuar o login a resposta do
+	servidor é:<br />
+	<br />
+	
+	The requested URL /j_spring_security_check was not found on this server. 
+    <br /><br />
+    
+	Pelas minhas pesquisas esse erro pode estar relacionado a necessidade de contratar 
+	um servidor exclusivo, pois o servidor compartilhado atual não suportaria request 's 
+	mais complexas.
+	<br />
+	Mas como sou programador ainda irei insistir em novas possibilidades para a solução, 
+	até obter uma conclusão que me deixe satisfeito. 
+	<br />
+	Alterar as caracteristicas do projeto é uma possibilidade, pois contratar um 
+	servidor exclusivo é demasiado dispendioso. Mas até ter uma resposta conclusiva,
+	pretendo pesquisar um pouco mais. 
+	<br />
+	
+	</ui:define>
+	
+	</ui:composition>
+</html>

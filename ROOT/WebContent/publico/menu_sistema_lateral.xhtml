@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+	<ui:composition>
+	
+	<h:form id="menu_lateral">
+	
+	<p:menu>
+	
+	<p:submenu label="MENU">
+	<p:menuitem value="Descrição (Source)" ajax="false" url="/conteudoML/descFuncionamento.jsf"/>
+	<p:menuitem value="Tutorial Site (Ilustrado)" ajax="false" url="/conteudoML/tutorialSite.jsf"/>
+	<p:menuitem value="Objetivo Site e Futuro" ajax="false" url="/conteudoML/objetivoSite.jsf"/>
+	<p:menuitem value="Bibliografia" ajax="false" url="/conteudoML/bibliografia.jsf"/>
+	<p:menuitem value="Contato" ajax="false" url="/conteudoML/contato.jsf"/>
+	<p:menuitem value="Oque há em Manutenção?" ajax="false" url="/conteudoML/manutencao.jsf"/>
+	
+	</p:submenu>
+	
+	</p:menu>		
+	
+    </h:form>	
+	
+	
+	</ui:composition>
+</html>

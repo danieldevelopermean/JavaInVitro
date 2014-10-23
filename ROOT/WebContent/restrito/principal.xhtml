@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:util="http://java.sun.com/jsf/composite/components/util" > <!-- biblioteca da tag personalizada (loocalizacao) -->
+	
+	<ui:composition template="/templates/principal.xhtml">
+	
+	<!-- ao chamar o ui: composition , a pagina chama o modelo de pagina inteiro
+	com tudo oq ele contem, caso o usuario deseje mudar algo do modelo
+	ele deve usar o ui: define chamando o div da classe /template/principal.xhtml  -->
+	
+	<ui:define name="titulo">
+	Principal
+	</ui:define>
+	
+	<ui:define name="corpo">
+		
+	<!-- inicio: vital para funcionamento do contextoBean -->
+	<!-- retorna usuario autenticado pelo spring security  -->
+	Usuario logado #{request.remoteUser} <!-- informa qual o usuï¿½rio conectado // e garante a instancição dele no sistema / vital para o funcionamento-->
+	<br />
+	Nome do Usuario Logado #{contextoBean.usuarioLogado.nome} <!-- garante a criaï¿½ï¿½o da class ContextoBean -->
+	<br />
+	<!-- fim: vital para o funcionamento do contextoBean  -->
+	
+	<h:form>
+	
+		<!-- so vai apa0recer para o ADM -->
+		<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR"> <!-- sec:ifAnyGranted define o grau de acesso do usuï¿½rio  -->
+		<h:commandButton value="Administacao" action="/admin/principal" />
+		</sec:ifAnyGranted>
+	
+		<input type="button"
+		value="Logout"
+		onclick="document.location='#{request.contextPath}/j_spring_security_logout'" />
+		
+	</h:form> 	
+
+
+	
+</ui:define>
+
+</ui:composition>
+	
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/templates/principal.xhtml">
+	
+	<ui:define name="corpo">
+	
+<h1>Descrição do Funcionamento do código Fonte </h1>
+<ul>
+<h4><li>Ferramentas de desenvolvimento: </li></h4>
+Eclipse Kepler, ireport 
+
+<h4><li>Principais frameworks usados: </li></h4>
+springSecurity , hibernate , primefaces 
+<br />
+
+<br />
+<h4><li>MVC é utilizado como regra de boa programação, portanto existem algumas classes java básicas: </li></h4>
+.java / DAO.java / DAOHibernate.java / RN.java / Bean.java (que é um esquema comum)
+<br />
+<h4><li>Alguns Pacotes importantes: </li></h4>
+web – Bean.java <br /> <br />
+util – HibernateUtil.java , Exception... .java (cria a sessão de conexão, intercepta erros respectivamente ) <br /> <br />
+web.filter – ConexaoHibernateFilter.java (filtra as requisições) <br /> <br />
+web.util – Util.java (recupera informações do usuário logado e responde para o Bean.java) <br /> <br />
+<h4><li>Arquivos de configuração e navegação: </li></h4>
+hibernate.cfg.xml,  web.xml , faces-config.xml , aplicationContext.xml ,                       aplicationContext-security.xml 
+</ul>
+<br />
+
+<h2> Servidor começa a rodar </h2>
+<ul>
+<li>Assim que o Servidor sobe o site, ele inicia o banco mysql e o servidor de email do goggle ,através do contexto. </li> <br />
+<li>A aplicação Context-Security é iniciada(defini o nível de acesso do usuário), esta direciona para a página login(onde o usuário pode iniciar a sessão ou ser direcionado para a página de registro).  Todas as Páginas a partir da Login.jsf em diante são gerenciadas por templates e css. </li> <br />
+<li>Após iniciar a sessão (caso o nível de acesso seja ADM existe uma aba a mais, para manutenção dos usuários cadastrados), o usuário é apresentado a tela principal onde ele tem acesso as abas “Descrever Habilidades ”, “Definir Linguagens” , “Logout “ além do menu padrão que independe de nível de acesso. </li> <br />
+<li>Em caso de selecionar: </li> <br />
+Definir Linguagens - é retornada uma árvore de altura 3, que pode ser alterada e receber novos ramos. O objetivo de existência dessa árvore é que o programador pode alterar ou incluir linguagens e frameworks que ele tenha conhecimento, esses serão afetados diretamente pelo conteúdo da aba “Descrever Habilidades”.    <br /> <br />
+Descrever Habilidades – nessa aba o usuário seleciona um ramo da árvore definida na aba “Definir Linguagens” e descreve suas habilidades no campo selecionado. 
+      Ex:  Java (Avançado: conhecimento profundo em hibernate, spring, primefaces, jsf ...  )
+Após o campo ser salvo é mostrada uma listagem de todos de todos os ramos que contém descrições. Há ainda a possibilidade de imprimir um relatório com os dados cadastrais do usuário logado e suas respectivas habilidades. 
+</ul>
+
+
+<h:form>
+<h:commandLink value="Esquema em imagens" action="/conteudoML/tutorialSite" />
+</h:form>
+
+
+	
+	</ui:define>
+	
+	</ui:composition>
+</html>

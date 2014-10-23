@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+	
+	<!--esse arquivo contem dois parametros do relatorio  -->
+	
+<ui:composition>
+	
+		<h:panelGrid columns="2">
+			<h:form id="impressao">
+				<h:commandLink>
+					<f:setPropertyActionListener target="#{lancamentoBean.tipoRelatorio}"
+						value="1" /> <!--define tipo de relatorio q sera gerado, value = identifica o tipo de relatorio de acordo com a estrutura da class RelatorioUtil  -->
+					<p:fileDownload value="#{lancamentoBean.arquivoRetorno}"  /><!--realiza o processo de download  -->
+					<h:graphicImage library="imagens" name="pdf.png"
+						title="Imprimir PDF" />
+				</h:commandLink>
+				<h:commandLink>
+					<f:setPropertyActionListener target="#{lancamentoBean.tipoRelatorio}"
+						value="2" />
+					<p:fileDownload value="#{lancamentoBean.arquivoRetorno}" />
+					<h:graphicImage library="imagens" name="excel.png"
+						title="Imprimir Excel" />
+				</h:commandLink>
+				
+			</h:form>
+		</h:panelGrid>
+	
+</ui:composition>
+</html>

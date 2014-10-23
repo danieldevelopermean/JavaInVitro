@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	
+	
+	<http auto-config='true'> <!-- agrupador de configurações para o arquivo web.xml  -->
+	
+		<intercept-url pattern="/publico/login.jsf*" access="IS_AUTHENTICATED_ANONYMOUSLY" requires-channel="any"/>
+		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" requires-channel="any"/> <!-- acessa a pasta admin, somente usuario adm  -->
+		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" requires-channel="any"/>
+		<!--  <intercept-url pattern="/empresa/**" access="ROLE_EMPRESA" />-->
+		<!-- configura o caminha para a pagina onde ocorrera o login -->
+		
+		
+
+		<form-login 
+			login-page="/publico/login.jsf"
+			always-use-default-target="true" 
+			default-target-url="/restrito/principal.jsf"
+			authentication-failure-url="/publico/login.jsf?login_error=1" />
+		<logout/> <!-- recurso de logout para o sistema -->
+		<remember-me /> <!-- autoriza o login automatico, importante "inserção de linha na pagina do login " -->
+	</http> 
+	
+  
+
+
+	<!--query abaixo são referentes ao login efetuado acima -->
+	<authentication-manager>
+		<authentication-provider> <!-- define quais são os usuarios validos e suas permissoes -->
+			<!-- busca referencia no xml aplicationContext.xml -->
+			<!--se conecta ao banco -->
+			<jdbc-user-service data-source-ref="javaDataSource"  
+				authorities-by-username-query="SELECT u.login, p.permissao 
+											 FROM usuario u, usuario_permissao p 
+											WHERE u.codigo = p.usuario 
+											  AND u.login = ?"
+				users-by-username-query="SELECT login, senha, ativo 
+									   FROM usuario 
+									  WHERE login = ?" />
+		</authentication-provider>
+	</authentication-manager>
+<!-- authorities-by-username-query = recebe o campo login do login.jsf // define a permissao do usuario-->
+<!-- users-by-username-query = recebe o campo senha do login.jsf // define se a senha esta de acordo com o email-->
+</b:beans>

@@ -1,0 +1,78 @@
+/* garante q essa configuração sera entendida para qualquer testo da pagina chamadora */ 
+body, td, th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+/* se refere ao cabeçalho da tabela , no caso abaixo ao plano de fundo */ 
+th {
+	background: url(#{resource['imagens:fundo_claro.png']}); 
+	min-height: 25px; /* minimo 25 pixels de altura*/ 
+	padding: 3px; /* padding espaçamento minimo da borda */ 
+}
+
+img {
+	border:0px; /*sempre ver borda de qualquer imagem = 0 */ 
+}
+
+/*padroniza a largura do conteudo para todo o site */ 
+#container {
+	width: 770px; /*maximo 800 pixels de largura com folga para barra de rolagem */ 
+	height: 100%;
+	margin: 0 auto
+}
+	
+#titulo {
+	float: left; /* caso float for usada em uma div, na proxima div deve ser usado clear, como abaixo*/
+	font-size: 25pt;
+	font-variant: small-caps;
+	font-weight: bold;
+}
+
+#barra_menu {
+	background: url(#{resource['imagens:fundo_barra_menu.png']}) repeat-x; /*repeat -x repete a imagem varias vezes */
+	min-height: 25px;
+	padding: 3px;
+	clear:both; /* */
+}
+
+
+#barra_menu_lateral {
+	margin-left;  
+	
+	position: absolute;
+	
+}
+
+
+#corpo {
+	margin:24% ;
+	margin-top:0;
+	margin-bottom: 10px;
+	min-height: 300px;
+	
+	 
+}
+
+#rodape {
+	background: url(#{resource['imagens:fundo_barra_rodape.png']}) repeat-x;
+	height: 100px;
+	margin-top: 5px;
+	padding: 10px;
+	text-align: center;
+}
+
+.info {
+	font-weight: bold;
+	color: green;
+}
+
+.warn {
+	font-weight: bold;
+	color: #FFCC00;
+}
+
+.fatal, .error {
+	font-weight: bold;
+	color: red;
+}

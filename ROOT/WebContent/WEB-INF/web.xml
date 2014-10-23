@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+id="WebApp_ID" version="3.0">
+  <display-name>JavaInVitro Web</display-name>
+  
+  <!-- Servelet seria mapeamento de navegação cliente e servidor (aproximadamente) -->
+  <!-- resoure seria sobreescrever uma caracteristica do contexto padrão, usando o context.xml q esta na pasta META-INF -->
+  
+  <!-- acesso ao JSF bibliotecas -->
+  <servlet>
+  <display-name>FacesServlet</display-name>
+  <servlet-name>FacesServlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class> <!--class (lib) acesso ao JSF  -->
+  <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!--Mapeando o servlet acima  -->
+  <servlet-mapping>
+  <servlet-name>FacesServlet</servlet-name> 
+  <url-pattern>*.jsf</url-pattern> <!-- rodas todos os arquivos jsf na pasta WebContent  -->
+  </servlet-mapping>
+  
+  <!-- inicio , toda tentativa de conexão q tiver jsf envolvida passara por aqui -->
+  <filter>
+  <filter-name>conexaoFilter</filter-name>
+  <filter-class>Programa.web.filter.ConexaoHibernateFilter</filter-class>
+  </filter>
+   <filter-mapping>
+   <filter-name>conexaoFilter</filter-name>
+   <url-pattern>*.jsf</url-pattern>
+   </filter-mapping>
+  
+  <!-- fim  --> 	
+  
+  
+  <!--Exibir mensagens de erro  -->
+  <context-param>
+  <param-name>javax.faces.PROJECT_STAGE</param-name> <!--  -->
+  <param-value>Development</param-value> <!--Defini q as mensagens serão mais detalhadas  -->
+  </context-param>
+  
+  <!-- Conexão com o arquivo context.xml(conexão com o banco para o Spring no TomCat diretamente , antes do Hibernate ser chamado) na pasta META-INF  -->
+  <resource-ref>
+  <description>DataSource JavaDB</description>
+  <res-ref-name>jdbc/JavaDB</res-ref-name> <!-- nome da conexão no arquivo context.xml  -->
+  <res-type>javax.sql.DataSource</res-type>
+  <res-auth>Container</res-auth>
+  </resource-ref>
+  <!-- Fim da configuração de conexão com o banco -->
+  
+  <!-- Spring Security  -->
+  <context-param> <!-- informa quais os arquivos de configuração disponiveis -->
+  <param-name>contextConfigLocation</param-name>
+  <param-value> 
+  /WEB-INF/applicationContext.xml
+  /WEB-INF/applicationContext-security.xml
+  </param-value>
+  </context-param>
+  <filter> <!-- intercepta todas as requisições para o banco de dados -->
+  <filter-name>springSecurityFilterChain</filter-name>
+  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+  <filter-name>springSecurityFilterChain</filter-name>
+  <url-pattern>/*</url-pattern> <!-- caso fosse /*.jsf , somente as requisições vindas do jsf seriam avaliadas  -->
+  </filter-mapping>
+  <listener> <!-- carrega os arquivos de configuração, assim q o aplicativo web entra no ar  -->
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- fim Spring Security -->
+  
+  
+  <!-- inicio: primeFaces  -->
+  <servlet>
+  <servlet-name>Resource Servlet</servlet-name>
+  <servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+  </servlet>
+ 
+  <servlet-mapping>
+  <servlet-name>Resource Servlet</servlet-name>
+  <url-pattern>/primefaces_resource/*</url-pattern>
+  </servlet-mapping>
+  
+  <context-param>
+  <param-name>com.sun.faces.allowTextChildren</param-name>
+  <param-value>true</param-value>
+  </context-param>
+   <!-- Fim: primeFaces  -->
+  
+  
+  <!-- inicio: mapeamento navegação email  / vinculo context.xml-->
+  <!-- quando uma requisição envolver email , buscara aqui a solução   -->
+  <resource-ref>
+		<description>Mail Session</description>
+		<res-ref-name>mail/Session</res-ref-name>
+		<res-type>javax.mail.Session</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+ 
+  <!-- fim: mapeamento navegação email -->
+  
+  
+    <error-page>
+    <error-code>404</error-code>
+    <location>/restrito/principal.jsf</location>
+    </error-page>
+    
+    <error-page>
+    <error-code>500</error-code>
+    <location>/publico/emManutencao.jsf</location>
+    </error-page>
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+   </welcome-file-list>
+
+
+
+
+
+</web-app>

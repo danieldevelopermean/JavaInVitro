@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+  <!-- faz referencia a web.xml : DataSource FinanceiroDB, para a conexão com o banco via spring Security  -->
+        
+		<property name="connection.datasource">java:/comp/env/jdbc/JavaDB</property>
+        
+          
+       
+        <property name="hibernate.c3p0.idle_test_period">300</property>
+        <property name="hibernate.c3p0.max_size">1</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        
+       
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.transaction.auto_close_session">true</property>
+       
+        
+        <property name="current_session_context_class">thread</property>
+         
+ 	    <property name="hibernate.hbm2ddl.auto">update</property>
+  
+  <!-- classes mapeadas no banco pelo hibernate -->
+  <mapping class="Programa.usuario.Usuario"/>
+  <mapping class="Programa.categoria.Categoria"/>
+  <mapping class="Programa.lancamento.Lancamento"/>
+
+ </session-factory>
+</hibernate-configuration>

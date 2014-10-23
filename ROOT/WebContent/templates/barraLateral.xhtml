@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> <!-- biblioteca responsável pela criação do template(modelo para as outras páginas jsf em tempo de execução) -->
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<!-- Financeiro WEb se torna o itulo padrão para todas as paginas q utilizarem esse modelo  -->
+	<title><ui:insert name="titulo">Java In Vitro</ui:insert></title> <!-- ui:insert = define os espaços vagos q seão prenchidos em tempo de execução -->
+
+	<h:outputStylesheet library="css" name="estilo.css"/> <!-- importa o estilo q será usados pelas paginas q herdarem esse template -->
+
+	<!-- define o estilo de exibição via css -->
+	<style type="text/css"><!--
+	#logotipo {
+		text-align: right; 
+		float: right;
+	} -->
+    </style> <!--# Logotipo é o alvo da ação  -->
+
+</h:head>
+
+<h:body>
+	<div id="container"> <!-- inicio: id= container define ação do css sobre o estilo dos div contidos abaixo   -->
+		
+		<div id="titulo"> <!-- div id = define a ação do css para um padrão visual da pagina   -->
+			<ui:insert name="titulo">Java In Vitro</ui:insert><!-- (4) -->  
+		</div>
+		<!-- ui:insert  define oq sera usado como padrão -->
+		<!-- ui:include  passa um endereço q ira buscar um padrao -->
+		<!-- h:graphicImage busca uma imagem como padrão -->
+		
+		<div id="logotipo">
+			<h:graphicImage library="imagens" name="logotipo_m.png"/>
+		</div>
+		
+		<div id="barra_menu">
+	    	<ui:insert name="barra_menu">
+	    		<ui:include src="/restrito/menu_sistema.xhtml"/>
+	   		</ui:insert>  
+		</div>
+		
+		<div id="barra_menu_lateral">
+	    	<ui:insert name="barra_menu">
+	    		<ui:include src="/restrito/menu_sistema_lateral.xhtml"/>
+	   		</ui:insert>   
+		</div>
+		
+		<!-- corpo, não foi definido nenhum conteudo padrão, para q ele possa ser prenchido pelo conteudo normal da pagina chamadora -->
+		<div id="corpo">
+			<ui:insert name="corpo"/>
+		</div>
+		
+		
+		<div id="rodape">
+	    	<ui:insert name="rodape">
+	    		<ui:include src="/publico/rodape.xhtml"/>
+	    	</ui:insert> 
+		</div>
+		
+	</div> <!-- fim: container  -->
+	
+</h:body>
+</html>

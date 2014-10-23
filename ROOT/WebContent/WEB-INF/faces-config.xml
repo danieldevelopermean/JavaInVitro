@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+					http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0"> 
+
+<!-- Define as regras de navegação entre páginas -->
+
+<managed-bean>
+<managed-bean-name>usuarioBean</managed-bean-name> <!--Nome da class a ser chamada pela pagina jsf  -->
+<managed-bean-class>Programa.web.UsuarioBean</managed-bean-class> <!-- localização da class  -->
+<managed-bean-scope>request</managed-bean-scope> <!-- tempo de vida da instância  -->
+</managed-bean>
+
+
+<navigation-rule>
+<from-view-id>*</from-view-id> <!-- todas as páginas são acessíveis -->
+<navigation-case>
+<from-outcome>inicio</from-outcome> <!-- caso o String inicio seja acionado em um jsf ou no bean  -->
+<to-view-id>index.xhtml</to-view-id> <!-- direciona para essa página -->
+</navigation-case>
+
+<navigation-case>
+<from-outcome>usuario</from-outcome>
+<to-view-id>publico/usuario.xhtml</to-view-id>
+</navigation-case>
+</navigation-rule>
+
+
+<navigation-rule>
+<from-view-id>/usuario.xhtml</from-view-id> <!--caso essa seja a pagina de onde vem a solicitação  -->
+<navigation-case>
+<from-outcome>sucesso</from-outcome> <!-- ocorrer o sucesso na class UsuarioBean, no método salvar -->
+<to-view-id>/mostraUsuario.xhtml</to-view-id>
+</navigation-case>
+</navigation-rule>
+
+<!-- inicio: configurar navegação  para idiomas -->
+<application>
+<locale-config><!-- defini os idiomas disponiveis e o padrão -->
+<default-locale>pt_BR</default-locale>
+<supported-locale>en_US</supported-locale>
+<supported-locale>pt_BR</supported-locale>
+</locale-config>
+
+<resource-bundle> <!-- especificações do sistema  --> <!-- so vai ate a palavra mensagem... o restante é definido em tempo de execução  -->
+<base-name>Programa.idioma.mensagens</base-name><!-- local onde esta o arquivo de internacionalização -->
+<var>msg</var> <!-- variavel usada para chamar a confg de idioma -->
+
+<!--abaixo: define q mensagem padrão utilizada pelo jsf sera customizada acima -->
+<!-- 
+<message-bundle>Programa.idoma.CustomMessages</message-bundle>
+ -->
+</resource-bundle>
+</application>
+<!-- fim: configurar navegação  para idiomas -->
+
+
+</faces-config>

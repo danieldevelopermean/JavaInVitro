@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- descritivo do WebService , nome e a class q fornece o serviço para q suba o servidor  -->
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime'
+	version='2.0'>
+	<endpoint name='financeiroWS' implementation='financeiro.webservice.FinanceiroWS'
+		url-pattern='/webservice/financeiroWS' />
+</endpoints>
