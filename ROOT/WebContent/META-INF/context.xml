@@ -15,7 +15,7 @@
             type="javax.sql.DataSource" 
             url="jdbc:mysql://mysql.javainvitro.com/javainvitro01?autoReconnect=true"
 			username="root"
-            password="napole69" 
+            password="***********" 
             />
  
 
